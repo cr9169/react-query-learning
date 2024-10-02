@@ -1,0 +1,87 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  min-width: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
+#root {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Happy Monkey", sans-serif;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+  font-style: italic;
+}
+
+h1 {
+  border-bottom: 2.5px black solid;
+}
+
+section {
+  width: 100%;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.report {
+  display: grid;
+  place-items: center;
+  gap: 0.25rem;
+  padding: 1rem;
+  background: hsl(0, 0%, 0%);
+  font: 1rem;
+  color: chartreuse;
+  border-radius: 1rem;
+}
+
+.add-report-button {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
