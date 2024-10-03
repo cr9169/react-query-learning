@@ -51,7 +51,7 @@ const generateRandomLocation = (): string => {
 const generateRandomReport = (): Report => {
   return {
     id: generateRandomId(),
-    date: new Date().toISOString().split("T")[0], // Current date in YYYY-MM-DD format
+    date: new Date().toISOString().split("T")[0],
     sleepStatus: generateRandomSleepStatus(),
     duration:
       generateRandomSleepStatus() === "Asleep" ? generateRandomDuration() : 0,
@@ -120,18 +120,19 @@ const warpHeader = (headerContent: React.ReactNode) => {
 };
 
 function App() {
+  console.log(reports);
+
   const queryClient = useQueryClient();
 
   const reportsQuery = useQuery({
+    refetchOnWindowFocus: true,
     queryKey: ["reports"],
-    queryFn: () => sleep(1000).then(() => [...reports]),
+    queryFn: () => [...reports],
   });
 
   const newReportMutation = useMutation({
-    mutationFn: (report: Report) => {
-      return sleep(1000).then(() => {
-        reports.push({ ...report, id: `00${reports.length + 1}` });
-      });
+    mutationFn: async (report: Report) => {
+      return reports.push({ ...report, id: `00${reports.length + 1}` });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reports"] });
@@ -160,6 +161,7 @@ function App() {
       <button
         className="add-report-button"
         disabled={newReportMutation.isPending}
+        //                               (activates the mutationFn)
         onClick={() => newReportMutation.mutate(generateRandomReport())}
       >
         Add New Report
@@ -168,8 +170,8 @@ function App() {
   );
 }
 
-const sleep = (duration: number) => {
-  return new Promise((res) => setTimeout(res, duration));
-};
+// const sleep = (duration: number) => {
+//   return new Promise((res) => setTimeout(res, duration));
+// };
 
 export default App;
